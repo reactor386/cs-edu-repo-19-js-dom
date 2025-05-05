@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
 
-    <AssemblyVersion>1.0.100.0</AssemblyVersion>
-    <FileVersion>1.0.100.1</FileVersion>
-    <VersionPrefix>1.0.100</VersionPrefix>
+    <AssemblyVersion>1.0.101.0</AssemblyVersion>
+    <FileVersion>1.0.101.1</FileVersion>
+    <VersionPrefix>1.0.101</VersionPrefix>
     <VersionSuffix>prerelease</VersionSuffix>
     <InformationalVersion>v$(VersionPrefix)</InformationalVersion>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
@@ -15,5 +15,12 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\" />
+    <Folder Include="wwwroot\" />
+    <Folder Include="wwwroot\css\" />
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
 
 </Project>
