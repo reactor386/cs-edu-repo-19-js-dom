@@ -81,6 +81,7 @@ aside{
 
 body{
     padding-left: 250px;
+    padding-right: 50px;
     height: 100%;
     min-height: 100vh;
     display: flex;

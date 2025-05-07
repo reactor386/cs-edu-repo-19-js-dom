@@ -17,7 +17,7 @@ public static class EndpointMapper
     /// </summary>
     public static void MapCss(this IEndpointRouteBuilder builder)
     {
-        var cssFiles = new[] { "index.css" };
+        var cssFiles = new[] { "index.css", "slider.css" };
         
         foreach (var fileName in cssFiles)
         {
@@ -35,7 +35,7 @@ public static class EndpointMapper
     /// </summary>
     public static void MapJs(this IEndpointRouteBuilder builder)
     {
-        var jsFiles = new[] { "index.js", "testing.js", "about.js" };
+        var jsFiles = new[] { "index.js", "testing.js", "about.js", "slider.js" };
     
         foreach (var fileName in jsFiles)
         {
@@ -57,6 +57,8 @@ public static class EndpointMapper
             Path.Combine(Directory.GetCurrentDirectory(), "Views", "Shared", "footer.html"));
         string sideBarHtml = File.ReadAllText(
             Path.Combine(Directory.GetCurrentDirectory(), "Views", "Shared", "sidebar.html"));
+        string sliderHtml = File.ReadAllText(
+            Path.Combine(Directory.GetCurrentDirectory(), "Views", "Shared", "slider.html"));
         
         builder.MapGet("/", async context =>
         {
@@ -93,9 +95,29 @@ public static class EndpointMapper
             var html =  new StringBuilder(await File.ReadAllTextAsync(viewPath))
                 .Replace("<!--SIDEBAR-->", sideBarHtml)
                 .Replace("<!--FOOTER-->", footerHtml)
+                // Добавим для загрузки слайдера
+                .Replace("<!--SLIDER-->", sliderHtml)
                 .ToString();
             
             await context.Response.WriteAsync(html);
         });
+    }
+
+    /// <summary>
+    ///  Маппинг изображений
+    /// </summary>
+    public static void MapImg(this IEndpointRouteBuilder builder)
+    {
+        var imgFiles = new[] { "london.jpg", "ny.jpg", "spb.jpg" };
+    
+        foreach (var fileName in imgFiles)
+        {
+            builder.MapGet($"/wwwroot/images/{fileName}", async context =>
+            {
+                var imgPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", fileName);
+                var img = await File.ReadAllBytesAsync(imgPath);
+                await context.Response.Body.WriteAsync(img);
+            });
+        }
     }
 }
